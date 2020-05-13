@@ -1,0 +1,186 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.carousel-text {
+    position: absolute;
+    top: 80%;
+    width: 100%;
+    left: 1.8%;
+    height: 20%;
+    right: auto;
+    width: 96.66666666666666%;
+    color: #fff;
+}
+
+.carousel-text span {
+    background-color: #000;
+    padding: 10px 20px;
+    width: 100%;
+}
+
+.card-title {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.card-img-top {
+    transition: all .2s ease-in-out;
+}
+
+.card-img-top:hover {
+    transform: scale(1.03);
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.bread-crumbs {
+    margin-top: 25px;
+}
+
+.bread-crumbs>a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.product-detail {
+    margin-top: 20px;
+    background: #fff;
+    padding: 40px;
+}
+
+.product-description {
+    margin: 20px 0;
+}
+
+.product-price {
+    margin: 20px 0;
+}
+
+.quantity>.input-group {
+    width: 140px;
+    margin-bottom: 30px;
+}
+
+.action {
+    display: block
+}
+
+i.fas {
+    margin-right: 5px;
+}
+
+.btn-lego-red {
+    color: white;
+    background-color: #fe0100;
+}
+
+.nav-tabs>.active>a,
+.nav-tabs>.active>a:hover,
+.nav-tabs>.active>a:focus {
+    border-color: #d45500;
+    border-bottom-color: transparent;
+}
+
+.tab-content {
+    padding: 1rem 1rem;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-top: none;
+}
+
+.review-title {
+    padding: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav-link {
+    color: black;
+}
+
+.nav-link:hover {
+    color: black;
+}
+
+.review-user {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.review-date {
+    font-size: 12px;
+}
+
+.review-description {
+    padding: 0
+}
+
+.review:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
+.carousel-control-next span,
+.carousel-control-prev span {
+    height: 15px;
+    padding: 15px;
+}
+
+.subscription-box {
+    padding: 15px 0;
+}
+
+.subscription-box .subscribe {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.subscription-box .subscribe h2 {
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.subscription-box .subscribe .form-control {
+    height: 40px;
+    background: rgba(255, 255, 255, 0.6);
+    border-color: transparent;
+}
+
+.subscription-box .subscribe .form-control:focus {
+    box-shadow: none;
+    border-color: #243c4f;
+}
+
+.subscription-box .subscribe .btn {
+    min-height: 40px;
+    background: #243c4f;
+    color: #fff;
+}
+
+.form-control:focus,
+.btn:focus {
+    box-shadow: none;
+}
+
+.product-quantity {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .card-img-top {
+        padding: 0 50px;
+    }
+}
+
+@media (min-width: 769px) {
+    .card-img-top {
+        padding: 0;
+    }
+}

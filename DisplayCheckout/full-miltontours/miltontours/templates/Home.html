@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Legoland">
+
+    <!-- Bootstrap Required Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Legoland</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/app.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Contains the heading, navigation and banner image -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+            <div class="container">
+
+                <div style="margin-right:15px">
+                    <a href="/">
+                        <img style="height: 40px" src="{{url_for('static', filename='img/logo.jpg')}}" alt="Logo">
+                    </a>
+                </div>
+                <a href="/" class="navbar-brand">
+                    Legoland
+                </a>
+
+                <button class="navbar-toggler" style="outline: none!important;" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navbar -->
+                <div class="collapse navbar-collapse" id="navbarToggler">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link text-center" href="#">Shop</a>
+                        <a class="nav-item nav-link text-center" href="#">Support</a>
+                        <a class="nav-item nav-link text-center" href="#">About</a>
+                        <div class="dropdown">
+                            <div class="dropdown-menu" aria-labelledby="bookDropdown">
+                                <a class="dropdown-item text-center" href="#">Shop</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-center" href="#">Support</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-center" href="#">About</a>
+                            </div>
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+                <form class="d-none d-lg-block form-inline">
+                    <input style="border-radius: 10px" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contains the main content of the website, divided into sections -->
+    <main>
+        <section>
+            <div class="bg-white mt-3 mb-0" style="height: 70px">
+                <h1 class="container text-center text-dark">
+                    Welcome to Legoland
+                </h1>
+            </div>
+        </section>
+        <section>
+            <div class="card card-image" style="cursor: pointer">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators" style="color: black;">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active text-center">
+                            <div class="carousel-text d-none d-md-block">
+                                <div class="col-md-12 text-center">
+                                    <h2>
+                                        <span>May the fourth be with you</span>
+                                    </h2>
+                                </div>
+                            </div>
+                            <img class="d-block w-100" src="{{url_for('static', filename='img/carousel1.jpg')}}" alt="First slide">
+                        </div>
+                        <div class="carousel-item">
+                            <div class="carousel-text d-none d-lg-block">
+                                <div class="col-md-12 text-center">
+                                    <h2>
+                                        <span>New Star Wars figures in stock</span>
+                                    </h2>
+                                </div>
+                            </div>
+                            <img class="d-block w-100" src="{{url_for('static', filename='img/carousel2.jpg')}}" alt="Second slide">
+                        </div>
+                        <div class="carousel-item">
+                            <div class="carousel-text d-none d-lg-block">
+                                <div class="col-md-12 text-center">
+                                    <h2>
+                                        <span>Need help? Talk to our Team</span>
+                                    </h2>
+                                </div>
+                            </div>
+                            <img class="d-block w-100" src="{{url_for('static', filename='img/carousel3.jpg')}}" alt="Third slide">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section style="margin: 20px 0 20px 0">
+            <h1 class="text-center text-dark">Most Popular</h1>
+            <div class="container">
+                <div class="card-deck">
+                    <a href="./Product1.html" class="col-lg-4 col-md-6 col-sm-12 text-dark" style="cursor: pointer;">
+                        <img class="card-img-top" src="{{url_for('static', filename='img/most_popular1.jpg')}}" height="250px" alt="Star Wards - Ultimate Collector Millennium Falcon">
+                        <div class="card-body text-center">
+                            <h3 class="card-title text-truncate mb-0">Star Wars - Ultimate Collector Millennium Falcon</h3>
+                            <div class="text-warning">
+                                <div class="text-warning">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                            </div>
+                            <p>$89.99</p>
+                            <button type="button" class="btn btn-danger btn-md">Add to Cart</button>
+                        </div>
+                    </a>
+
+                    <a href="./Product2.html" class="col-lg-4 col-md-6 col-sm-12 text-dark" style="cursor: pointer;">
+                        <img class="card-img-top" src="{{url_for('static', filename='img/most_popular2.jpg')}}" height="250px" alt="Star Wards - Death Star">
+                        <div class="card-body text-center">
+                            <h3 class="card-title text-truncate mb-0">Star Wards - Death Star</h3>
+                            <div class="text-warning">
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star-half-alt"></span>
+                            </div>
+                            <p>$79.99</p>
+                            <button type="button" class="btn btn-danger btn-md">Add to Cart</button>
+                        </div>
+                    </a>
+
+                    <a href="./Product3.html" class="col-lg-4 col-md-6 col-sm-12 text-dark" style="cursor: pointer;">
+                        <img class="card-img-top" src="{{url_for('static', filename='img/most_popular3.jpg')}}" height="250px" alt="Ninjago - Masters of Spinjitzu">
+                        <div class="card-body text-center">
+                            <h3 class="card-title text-truncate mb-0">Ninjago - Masters of Spinjitzu</h3>
+                            <div class="text-warning">
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </div>
+                            <p>$49.99</p>
+                            <button type="button" class="btn btn-danger btn-md">Add to Cart</button>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- End card deck -->
+        </section>
+        <section class="subscription-box bg-warning">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="subscribe">
+                            <h2 class="text-dark">Want to stay tuned?</h2>
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Enter your email" aria-label="" aria-describedby="basic-addon1">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button">Subscribe</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer of the website -->
+    <footer class="footer">
+        <div class="py-2 bg-dark">
+            <span class="ml-2 text-light">Copyright &copy; 2020 - Legoland | All Rights Reserved</span>
+        </div>
+    </footer>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
