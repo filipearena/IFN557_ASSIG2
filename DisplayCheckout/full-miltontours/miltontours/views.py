@@ -20,11 +20,19 @@ bp = Blueprint('main', __name__)
 
 @bp.route('/')
 def index():
-    return render_template('Home.html')
+    return render_template('home.html')
 
-@bp.route('/Home')
+@bp.route('/home')
 def home():
-    return render_template('Home.html')
+    return render_template('home.html')
+
+@bp.route('/shop')
+def shop():
+    return render_template('shop.html')
+
+@bp.route('/product')
+def product():
+    return render_template('product.html')
 
 # @bp.route('/')
 # def index():
