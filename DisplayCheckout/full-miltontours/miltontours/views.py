@@ -16,10 +16,11 @@ from datetime import datetime
 # orders = [order1,order2]
 
 
-product1 = Product('1', 'Star Wars - Ultimate Collector Millennium Falcon', 89.99, 'most_popular1.jpg')
-product2 = Product('2', 'Star Wards - Death Star', 79.99, 'most_popular2.jpg')
-product3 = Product('3', 'Ninjago - Masters of Spinjitzu', 49.99, 'most_popular3.jpg')
+product1 = Product('1', 'Star Wars - Ultimate Collector Millennium Falcon', 89.99, 'most_popular1.jpg', 300, "LEGO® Star Wars™ Millennium Falcon™ - Ultimate Collector's Edittion", 'Full Description', 'Specification')
+product2 = Product('2', 'Star Wards - Death Star', 79.99, 'most_popular2.jpg', 250, "LEGO® Star Wars™ Millennium Falcon™ - Ultimate Collector's Edittion", 'Full Description', 'Specification')
+product3 = Product('3', 'Ninjago - Masters of Spinjitzu', 49.99, 'most_popular3.jpg', 131, "LEGO® Star Wars™ Millennium Falcon™ - Ultimate Collector's Edittion", 'Full Description', 'Specification')
 mostpopular = [product1, product2,product3]
+products = mostpopular
 
 bp = Blueprint('main', __name__)
 
@@ -39,9 +40,13 @@ def home():
 def shop():
     return render_template('shop.html', products = mostpopular)
 
-@bp.route('/product')
-def product():
-    return render_template('product.html')
+@bp.route('/product/<int:productid>/')
+def product(productid):
+    selectedproduct = 1
+    for product in products:
+        if int(product.id) == int(productid): 
+            selectedproduct = product
+    return render_template('product.html', product = selectedproduct)
 
 # @bp.route('/')
 # def index():
