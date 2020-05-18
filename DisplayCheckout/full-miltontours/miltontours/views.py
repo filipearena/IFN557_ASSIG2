@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, url_for, request, session, flash
 from .models import Product
 from datetime import datetime
-# from .forms import CheckoutForm
+from .forms import CheckoutForm
 
 # # This data will eventually be stored in a database
 # sydney = City('1', 'Sydney', 'City in New South Wales with largest population', 'sydney.jpg')
@@ -40,6 +40,10 @@ def home():
 def shop():
     return render_template('shop.html', products = mostpopular)
 
+@bp.route('/order')
+def order():
+    return render_template('order.html', products = mostpopular)
+
 @bp.route('/product/<int:productid>/')
 def product(productid):
     selectedproduct = 1
@@ -47,6 +51,28 @@ def product(productid):
         if int(product.id) == int(productid): 
             selectedproduct = product
     return render_template('product.html', product = selectedproduct)
+
+
+@bp.route('/checkout/', methods=['POST','GET'])
+def checkout():
+    form = CheckoutForm() 
+    # if 'order_id' in session:
+        
+    #     #retrieve correct order object
+    #     for x in orders:
+    #             if int(x.id) == int(session['order_id']): 
+    #                 order = x
+       
+    #     if form.validate_on_submit():
+    #         order.status = True
+    #         order.firstname = form.firstname.data
+    #         order.surname = form.surname.data
+    #         order.email = form.email.data
+    #         order.phone = form.phone.data
+    #         print(order)
+    #         flash('Thank you for your information')
+
+    return render_template('checkout.html', form = form)
 
 # @bp.route('/')
 # def index():
@@ -93,23 +119,3 @@ def product(productid):
 #     return render_template('index.html')
 
 
-# @bp.route('/checkout/', methods=['POST','GET'])
-# def checkout():
-#     form = CheckoutForm() 
-#     if 'order_id' in session:
-        
-#         #retrieve correct order object
-#         for x in orders:
-#                 if int(x.id) == int(session['order_id']): 
-#                     order = x
-       
-#         if form.validate_on_submit():
-#             order.status = True
-#             order.firstname = form.firstname.data
-#             order.surname = form.surname.data
-#             order.email = form.email.data
-#             order.phone = form.phone.data
-#             print(order)
-#             flash('Thank you for your information')
-
-#     return render_template('checkout.html', form = form)
