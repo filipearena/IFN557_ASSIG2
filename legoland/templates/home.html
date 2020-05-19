@@ -70,12 +70,14 @@
     <div class="container">
         <div class="card-deck">
             {% for product in products%}
-            <a href="/product/{{product.id}}" class="col-lg-4 col-md-6 col-sm-12 text-dark" style="cursor: pointer;">
-                <img class="card-img-top" src="{{url_for('static', filename='img/' + product.image)}}" height="250px"
-                    alt="Card Image">
+            <div class="col-lg-4 col-md-6 col-sm-12 text-dark">
+                <a href="/product/{{product.id}}">
+                    <img class="card-img-top" src="{{url_for('static', filename='img/' + product.image)}}"
+                        height="250px" alt="Card Image">
+                </a>
                 <div class="card-body text-center">
-                    <h3 class="card-title text-truncate mb-0">{{product.name}}</h3>
-                    <div class="text-warning">
+                    <a href="/product/{{product.id}}">
+                        <h3 class="card-title text-truncate mb-0">{{product.name}}</h3>
                         <div class="text-warning">
                             {% if product.fullstar > 0 %}
                             {% for review in range(0, product.fullstar)%}
@@ -93,11 +95,11 @@
                             {% endfor %}
                             {% endif %}
                         </div>
-                    </div>
-                    <p>${{product.price}}</p>
-                    <button type="button" class="btn btn-danger btn-md">Add to Cart</button>
+                        <p>${{product.price}}</p>
+                    </a>
+                    <a href="/order" class="btn btn-danger btn-md">Add to Cart</a>
                 </div>
-            </a>
+            </div>
             {% endfor %}
         </div>
     </div>

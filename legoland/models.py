@@ -15,7 +15,7 @@ class Product:
         diff = 5 - self.reviewscore
         if isinstance(diff, int):
             self.emptystar = diff
-        elif diff > 1: 
+        elif diff > 1:
             self.emptystar = int(diff - 0.5)
         if isinstance(self.reviewscore, int):
             self.fullstar = 5 - self.emptystar
@@ -32,9 +32,11 @@ class Product:
         return str(self)
 
     def __repr__(self):
-        str = "Id: {}, Name: {}, Price: {}, Image: {}, NumOfReviews: {}, ReviewScore: {}, ShortDescription: {}, FullDescription: {}, Specification: {} \n" 
-        str =str.format( self.id, self.name,self.price,self.image,self.numreviews, self.reviewscore, self.shortdescription,self.fulldescription,self.specification)
+        str = "Id: {}, Name: {}, Price: {}, Image: {}, NumOfReviews: {}, ReviewScore: {}, ShortDescription: {}, FullDescription: {}, Specification: {} \n"
+        str = str.format(self.id, self.name, self.price, self.image, self.numreviews,
+                         self.reviewscore, self.shortdescription, self.fulldescription, self.specification)
         return str
+
 
 class Order:
     def __init__(self, id, name, totalprice):
@@ -46,6 +48,6 @@ class Order:
         return str(self)
 
     def __repr__(self):
-        str = "Id: {}, Name: {}, TotalPrice: {} \n" 
-        str =str.format( self.id, self.name,self.totalprice)
+        str = "Id: {}, Name: {}, TotalPrice: {} \n"
+        str = str.format(self.id, self.name, self.totalprice)
         return str
