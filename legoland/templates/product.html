@@ -55,18 +55,18 @@
                 <div class="details col-lg-5 col-md-12">
                     <h3>{{product.name}}</h3>
                     <div class="text-warning">
-                        {% if fullstar > 0 %}
-                        {% for review in range(0, fullstar)%}
+                        {% if product.fullstar > 0 %}
+                        {% for review in range(0, product.fullstar)%}
                         <span class="fas fa-star"></span>
                         {% endfor %}
                         {% endif %}
-                        {% if halfstar %}
+                        {% if product.halfstar %}
                         {% for review in range(0, 1)%}
                         <span class="fa fa-star-half-alt"></span>
                         {% endfor %}
                         {% endif %}
-                        {% if emptystar > 0 %}
-                        {% for review in range(0, emptystar)%}
+                        {% if product.emptystar > 0 %}
+                        {% for review in range(0, product.emptystar)%}
                         <span class="far fa-star"></span>
                         {% endfor %}
                         {% endif %}
@@ -74,7 +74,7 @@
                     <span class="reviews">{{product.numreviews}} reviews</span>
                     <p class="product-description">{{product.shortdescription}}</p>
                     <h4 class="product-price">${{product.price}}</h4>
-                    <div class="quantity">
+                    <!-- <div class="quantity">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <button class="btn btn-outline-secondary" type="button"><i
@@ -87,8 +87,8 @@
                                         class="fas fa-plus"></i></button>
                             </div>
                         </div>
-                    </div>
-                    <div class="action">
+                    </div> -->
+                    <div class="action mt-2">
                         <a href="/order" class="btn btn-danger btn-md col-md-12 mb-3">Add to Cart</a>
                         <div class="container-fluid">
                             <div class="row">
