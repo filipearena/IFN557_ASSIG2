@@ -1,54 +1,58 @@
 {% extends 'base.html' %}
 
-{% block main %}
-<!-- display contents of user basket -->
-<section>
-    <div class="container">
-        <div class="row co-12 d-flex mt-2 mb-2">
-            <h3>Cart</h3>
+{% block head %}
+<section class="bread-crumbs">
+    <div class="container-fluid">
+        <div class="wrapper row">
+            <span class="container text-dark ">
+                <a href="/home" class="text-dark">Home</a> > <a href="/shop/most-popular" class="text-dark">Shop</a> >
+                Cart
+            </span>
         </div>
-        <!-- each tour on seperate row -->
-        {% for product in products %}
-        <div class="row my-row mb-3">
-            <div class="col-sm-10 card">
-                <h5 class="card-header">{{product.name}}</h5>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-2">
-                            <img class="img-thumbnail" src="{{url_for('static', filename=('img/' + product.image))}}">
-                        </div>
-                        <div class="col-10">
-                            <!-- Item Description -->
-                            <p class="card-text">{{product.description}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br><br>
-            <!-- right column has price and delete button -->
-            <div class="col-sm-2">
-                <!-- delete item button -->
-                <h5>{{ "$%.2f"|format(product.price) }}</h5>
-                <form method="POST">
-                    <input type="hidden" id="id" name="id" value="{{product.id}}">
-                    <input type="submit" value="Delete" class="btn btn-primary mb-3">
-                </form>
-            </div>
-        </div>
-        {% endfor %}
-
-        <!-- total price and page controls -->
-        <section>
-            <div class="row co-12 d-flex">
-                <h5 class="mt-4">Total Price = "Add price here from views"</h5>
-            </div>
-
-            <div class="row co-12 d-flex mt-2 mb-4">
-                <a href="/" class="btn btn-primary mr-4">Cities</a>
-                <a href="/" class="btn btn-primary mr-4">Checkout</a>
-                <a href="/" class="btn btn-primary">Empty Basket</a>
-            </div>
-        </section>
     </div>
 </section>
+{% endblock %}
+
+{% block main %}
+<!-- display contents of user basket -->
+
+{% for product in products %}
+<div class="container" style="border: none; padding: 10px">
+    <div class="card product-detail">
+        <div class="container-fluid">
+            <div class="wrapper row">
+                <div class="col-lg-3">
+                    <img style="border: none" class="img-thumbnail"
+                        src="{{url_for('static', filename=('img/' + product.image))}}">
+                </div>
+                <div class="details col-lg-9">
+                    <h5>{{product.name}}</h5>
+                    <!-- Item Description -->
+                    <p class="card-text">{{product.shortdescription}}</p>
+                    <h5>{{ "$%.2f"|format(product.price) }}</h5>
+
+                    <form method="POST">
+                        <input type="hidden" id="id" name="id" value="{{product.id}}">
+                        <input type="submit" value="Remove" class="align-self-end btn btn-secondary mb-3">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+<section class="mb-3 text-center">
+    <div class="container-fluid">
+        <div class="wrapper row">
+            <div class="container text-dark ">
+                <h5 class="mt-4">Total Price = "Add price here from views"</h5>
+                <br>
+                <a href="/checkout" class="btn btn-danger mb-4">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock %}

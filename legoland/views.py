@@ -53,11 +53,6 @@ def shop(sortby):
     return render_template('shop.html', products=mostpopular, sortby=sortby)
 
 
-@bp.route('/order')
-def order():
-    return render_template('order.html', products=mostpopular)
-
-
 @bp.route('/product/<int:productid>/')
 def product(productid):
     selectedproduct = 1
@@ -79,6 +74,11 @@ def product(productid):
                 fullstar = int(5 - emptystar - 0.5)
                 halfstar = True
     return render_template('product.html', product=selectedproduct, fullstar=fullstar, halfstar=halfstar, emptystar=emptystar)
+
+
+@bp.route('/order')
+def order():
+    return render_template('order.html', products=mostpopular)
 
 
 @bp.route('/checkout/', methods=['POST', 'GET'])
