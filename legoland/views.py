@@ -16,9 +16,18 @@ from .forms import CheckoutForm
 # orders = [order1,order2]
 
 
-product1 = Product('1', 'Star Wars - Ultimate Collector Millennium Falcon', 89.99, 'most_popular1.jpg', 300, "LEGO® Star Wars™ Millennium Falcon™ - Ultimate Collector's Edittion", 'Full Description', 'Specification')
-product2 = Product('2', 'Star Wards - Death Star', 79.99, 'most_popular2.jpg', 250, "LEGO® Star Wars™ Millennium Falcon™ - Ultimate Collector's Edittion", 'Full Description', 'Specification')
-product3 = Product('3', 'Ninjago - Masters of Spinjitzu', 49.99, 'most_popular3.jpg', 131, "LEGO® Star Wars™ Millennium Falcon™ - Ultimate Collector's Edittion", 'Full Description', 'Specification')
+product1 = Product(
+    '1', 
+    'Star Wars - Ultimate Collector Millennium Falcon', 
+    89.99, 
+    'most_popular1.jpg', 
+    300,
+    4.5, 
+    "LEGO® Star Wars™ Millennium Falcon™ - Ultimate Collector's Edittion", 
+    'Full Description', 
+    'Specification')
+product2 = Product('2', 'Star Wards - Death Star', 79.99, 'most_popular2.jpg', 250, 4, "LEGO® Star Wars™ Millennium Falcon™ - Ultimate Collector's Edittion", 'Full Description', 'Specification')
+product3 = Product('3', 'Ninjago - Masters of Spinjitzu', 49.99, 'most_popular3.jpg', 131, 3.5,  "LEGO® Star Wars™ Millennium Falcon™ - Ultimate Collector's Edittion", 'Full Description', 'Specification')
 mostpopular = [product1, product2,product3]
 products = mostpopular
 
@@ -32,8 +41,6 @@ def index():
 
 @bp.route('/home')
 def home():
-    # for product in mostpopular:
-    #     mostpopular.append(product)
     return render_template('home.html', products = mostpopular)
 
 @bp.route('/shop')
@@ -47,10 +54,24 @@ def order():
 @bp.route('/product/<int:productid>/')
 def product(productid):
     selectedproduct = 1
+    fullstar = 0
+    emptystar = 0
+    halfstar = False
     for product in products:
+        print(product.reviewscore)
         if int(product.id) == int(productid): 
             selectedproduct = product
-    return render_template('product.html', product = selectedproduct)
+            diff = 5 - product.reviewscore
+            if isinstance(diff, int):
+                emptystar = diff
+            elif diff > 1: 
+                emptystar = int(diff - 0.5)
+            if isinstance(product.reviewscore, int):
+                fullstar = 5 - emptystar
+            else:
+                fullstar = int(5 - emptystar - 0.5)
+                halfstar = True
+    return render_template('product.html', product = selectedproduct, fullstar = fullstar, halfstar = halfstar, emptystar = emptystar)
 
 
 @bp.route('/checkout/', methods=['POST','GET'])

@@ -1,5 +1,4 @@
-
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
 {% block head %}
 <section>
@@ -26,7 +25,8 @@
                             </h2>
                         </div>
                     </div>
-                    <img class="d-block w-100" src="{{url_for('static', filename='img/carousel1.jpg')}}" alt="First slide">
+                    <img class="d-block w-100" src="{{url_for('static', filename='img/carousel1.jpg')}}"
+                        alt="First slide">
                 </div>
                 <div class="carousel-item">
                     <div class="carousel-text d-none d-lg-block">
@@ -36,7 +36,8 @@
                             </h2>
                         </div>
                     </div>
-                    <img class="d-block w-100" src="{{url_for('static', filename='img/carousel2.jpg')}}" alt="Second slide">
+                    <img class="d-block w-100" src="{{url_for('static', filename='img/carousel2.jpg')}}"
+                        alt="Second slide">
                 </div>
                 <div class="carousel-item">
                     <div class="carousel-text d-none d-lg-block">
@@ -46,7 +47,8 @@
                             </h2>
                         </div>
                     </div>
-                    <img class="d-block w-100" src="{{url_for('static', filename='img/carousel3.jpg')}}" alt="Third slide">
+                    <img class="d-block w-100" src="{{url_for('static', filename='img/carousel3.jpg')}}"
+                        alt="Third slide">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -69,16 +71,27 @@
         <div class="card-deck">
             {% for product in products%}
             <a href="/product/{{product.id}}" class="col-lg-4 col-md-6 col-sm-12 text-dark" style="cursor: pointer;">
-                <img class="card-img-top" src="{{url_for('static', filename='img/' + product.image)}}" height="250px" alt="Card Image">
+                <img class="card-img-top" src="{{url_for('static', filename='img/' + product.image)}}" height="250px"
+                    alt="Card Image">
                 <div class="card-body text-center">
                     <h3 class="card-title text-truncate mb-0">{{product.name}}</h3>
                     <div class="text-warning">
                         <div class="text-warning">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
+                            {% if product.fullstar > 0 %}
+                            {% for review in range(0, product.fullstar)%}
+                            <span class="fas fa-star"></span>
+                            {% endfor %}
+                            {% endif %}
+                            {% if product.halfstar %}
+                            {% for review in range(0, 1)%}
+                            <span class="fa fa-star-half-alt"></span>
+                            {% endfor %}
+                            {% endif %}
+                            {% if product.emptystar > 0 %}
+                            {% for review in range(0, product.emptystar)%}
+                            <span class="far fa-star"></span>
+                            {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                     <p>${{product.price}}</p>
