@@ -16,7 +16,7 @@
 {% block main %}
 <!-- display contents of user basket -->
 
-{% for product in products %}
+{% for product in order.products %}
 <div class="container" style="border: none; padding: 10px">
     <div class="card product-detail">
         <div class="container-fluid">
@@ -31,7 +31,7 @@
                     <p class="card-text">{{product.shortdescription}}</p>
                     <h5>{{ "$%.2f"|format(product.price) }}</h5>
 
-                    <form method="POST">
+                    <form method="POST" action="{{url_for('main.deleteorderitem')}}">
                         <input type="hidden" id="id" name="id" value="{{product.id}}">
                         <input type="submit" value="Remove" class="align-self-end btn btn-secondary mb-3">
                     </form>
@@ -47,9 +47,9 @@
     <div class="container-fluid">
         <div class="wrapper row">
             <div class="container text-dark ">
-                <h5 class="mt-4">Total Price = "Add price here from views"</h5>
+                <h5 class="mt-4">Total Price: <b>${{totalprice}}</b></h5>
                 <br>
-                <a href="/checkout" class="btn btn-danger mb-4">Proceed to Checkout</a>
+                <a href="{{ url_for('main.checkout') }}" class="btn btn-danger mr-4">Checkout</a>
             </div>
         </div>
     </div>

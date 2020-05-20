@@ -74,22 +74,11 @@
                     <span class="reviews">{{product.numreviews}} reviews</span>
                     <p class="product-description">{{product.shortdescription}}</p>
                     <h4 class="product-price">${{product.price}}</h4>
-                    <!-- <div class="quantity">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-outline-secondary" type="button"><i
-                                        class="fas fa-minus"></i></button>
-                            </div>
-                            <input type="text" class="form-control product-quantity" placeholder="" aria-label=""
-                                aria-describedby="basic-addon1" value="1">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button"><i
-                                        class="fas fa-plus"></i></button>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="action mt-2">
-                        <a href="/order" class="btn btn-danger btn-md col-md-12 mb-3">Add to Cart</a>
+                        <form action="{{ url_for('main.order') }}">
+                            <input type="hidden" id="product_id" name="product_id" value="{{ product.id }}">
+                            <input class="btn btn-danger btn-md col-md-12 mb-3" type="submit" value="Add to Cart">
+                        </form>
                         <div class="container-fluid">
                             <div class="row">
                                 <button type="button" class="btn btn-md col-md-6"><i

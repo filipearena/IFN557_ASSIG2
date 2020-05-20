@@ -1,31 +1,8 @@
-from flask import Blueprint, render_template, url_for, request, session, flash
-from .models import Product
+from flask import Blueprint, render_template, url_for, request, session, flash, redirect
+from .models import Product, Order
 from datetime import datetime
 from .forms import CheckoutForm
 from . import db
-
-# product1 = Product('1', 'Star Wars - Ultimate Collector Millennium Falcon', 89.99, 'most_popular1.jpg', 300, 4, , "LEGO® Star Wars™ Millennium Falcon™ - Ultimate Collector's Edittion", 'Full Description', 'Specification')
-# product2 = Product(
-#     '2',
-#     'Star Wards - Death Star',
-#     79.99, 'most_popular2.jpg',
-#     250,
-#     4,
-#     "LEGO® Star Wars™ Death Star™ - Ultimate Collector's Edittion",
-#     'Full Description',
-#     'Specification')
-# product3 = Product(
-#     '3',
-#     'Ninjago - Masters of Spinjitzu',
-#     49.99,
-#     'most_popular3.jpg',
-#     131,
-#     3.5,
-#     "LEGO® Ninjago - Masters of Spinjitzu",
-#     'Full Description',
-#     'Specification')
-# mostpopular = [product1, product2, product3]
-# products = mostpopular
 
 bp = Blueprint('main', __name__)
 
@@ -45,7 +22,12 @@ def home():
 @bp.route('/shop/<string:sortby>')
 def shop(sortby):
     # USE SORT BY TO FILTER
-    products = Product.query.order_by(Product.name).all()
+    if(sortby == 'review'):
+        products = Product.query.order_by(Product.fullstar.desc()).all()
+    elif(sortby == 'price'):
+        products = Product.query.order_by(Product.price).all()
+    else:
+        products = Product.query.order_by(Product.numreviews.desc()).all()
     return render_template('shop.html', products=products, sortby=sortby)
 
 
@@ -55,73 +37,89 @@ def product(productid):
     return render_template('product.html', product=product)
 
 
-@bp.route('/order')
+@bp.route('/order', methods=['POST','GET'])
 def order():
-    products = Product.query.order_by(Product.name).all()
-    return render_template('order.html', products=products)
+    product_id = request.values.get('product_id')
+
+    # retrieve order if there is one
+    if 'order_id'in session.keys():
+        order = Order.query.get(session['order_id'])
+        # order will be None if order_id stale
+    else:
+        # there is no order
+        order = None
+
+    # create new order if needed
+    if order is None:
+        order = Order(status = False, firstname='', surname='', email='', phone='', totalcost=0, date=datetime.now())
+        try:
+            db.session.add(order)
+            db.session.commit()
+            session['order_id'] = order.id
+        except:
+            print('failed at creating a new order')
+            order = None
+    
+    # calcultate totalprice
+    totalprice = 0
+    if order is not None:
+        for product in order.products:
+            totalprice = totalprice + product.price
+    
+    # are we adding an item?
+    if product_id is not None and order is not None:
+        product = Product.query.get(product_id)
+        if product not in order.products:
+            try:
+                order.products.append(product)
+                db.session.commit()
+            except:
+                return 'There was an issue adding the item to your basket'
+            return redirect(url_for('main.order'))
+        else:
+            flash('item already in basket')
+            return redirect(url_for('main.order'))
+    # products = Product.query.order_by(Product.name).all()
+    return render_template('order.html', order = order, totalprice = totalprice)
+
+# Delete specific basket items
+@bp.route('/deleteorderitem', methods=['POST'])
+def deleteorderitem():
+    id=request.form['id']
+    if 'order_id' in session:
+        order = Order.query.get_or_404(session['order_id'])
+        product_to_delete = Product.query.get(id)
+        try:
+            order.products.remove(product_to_delete)
+            db.session.commit()
+            return redirect(url_for('main.order'))
+        except:
+            return 'Problem deleting item from order'
+    return redirect(url_for('main.order'))
 
 
-@bp.route('/checkout/', methods=['POST', 'GET'])
+@bp.route('/checkout', methods=['POST','GET'], strict_slashes=False)
 def checkout():
-    form = CheckoutForm()
-    # if 'order_id' in session:
-
-    #     #retrieve correct order object
-    #     for x in orders:
-    #             if int(x.id) == int(session['order_id']):
-    #                 order = x
-
-    #     if form.validate_on_submit():
-    #         order.status = True
-    #         order.firstname = form.firstname.data
-    #         order.surname = form.surname.data
-    #         order.email = form.email.data
-    #         order.phone = form.phone.data
-    #         print(order)
-    #         flash('Thank you for your information')
-
-    return render_template('checkout.html', form=form)
-
-# @bp.route('/')
-# def index():
-#     return render_template('index.html', cities = cities)
-
-# @bp.route('/tours/<int:cityid>/')
-# def citytours(cityid):
-#     citytours = []
-#     # create list of tours for this city
-#     for tour in tours:
-#             if int(tour.city.id) == int(cityid):
-#                 citytours.append(tour)
-#     return render_template('citytours.html', tours = citytours)
-
-
-# @bp.route('/order/', methods=['POST','GET'])
-# def order():
-
-#     tour_id = request.args.get('tour_id')
-#     # is this a new order?
-#     if 'order_id'not in session:
-#         session['order_id'] = 1 # arbitry, we could set either order 1 or order 2
-
-#     #retrieve correct order object
-#     for x in orders:
-#             if int(x.id) == int(session['order_id']):
-#                 order = x
-#     # are we adding an item? - will be implemented later with DB
-#     if tour_id:
-#         print('user requested to add tour id = {}'.format(tour_id))
-
-#     return render_template('order.html', order = order, totalprice = order.total_cost)
-
-
-# @bp.route('/deleteorder/')
-# def deleteorder():
-#     if 'order_id' in session:
-#         del session['order_id']
-#     return render_template('index.html')
-
-# @bp.route('/deleteorderitem/', methods=['POST'])
-# def deleteorderitem():
-#     print('User wants to delete tour with id={}'.format(request.form['id']))
-#     return render_template('index.html')
+    form = CheckoutForm() 
+    if 'order_id' in session:
+        order = Order.query.get_or_404(session['order_id'])
+       
+        if form.validate_on_submit():
+            order.status = True
+            order.firstname = form.firstname.data
+            order.surname = form.surname.data
+            order.email = form.email.data
+            order.phone = form.phone.data
+            totalcost = 0
+            for product in order.products:
+                totalcost = totalcost + product.price
+            order.totalcost = totalcost
+            order.date = datetime.now()
+            try:
+                db.session.commit()
+                del session['order_id']
+                flash('Thank you! One of our awesome team members will contact you soon...')
+                return redirect(url_for('main.index'))
+            except:
+                return 'There was an issue completing your order'
+    return render_template('checkout.html', form = form)

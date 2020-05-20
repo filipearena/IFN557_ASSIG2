@@ -1,13 +1,12 @@
 from datetime import datetime
 from . import db
 
-
 class Product(db.Model):
     __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
     image = db.Column(db.String(60), nullable=False,
-                      default='defaultproduct.jpg')
+                      default='most_popular1.jpg')
     price = db.Column(db.Float)
     fullstar = db.Column(db.Integer)
     emptystar = db.Column(db.Integer)
@@ -16,8 +15,6 @@ class Product(db.Model):
     shortdescription = db.Column(db.String(60), nullable=False)
     fulldescription = db.Column(db.String(500), nullable=False)
     specification = db.Column(db.String(500), nullable=False)
-    categories = db.relationship(
-        'Category', backref='Product', cascade="all, delete-orphan")
 
     def __repr__(self):
         str = "Id: {}, Name: {}, Price: {}, Image: {}, NumOfReviews: {}, ShortDescription: {}, FullDescription: {}, Specification: {} \n"
@@ -26,24 +23,12 @@ class Product(db.Model):
         return str
 
 
-class Category(db.Model):
-    __tablename__ = 'categories'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), unique=True)
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
-
-    def __repr__(self):
-        str = "Id: {}, Name: {}, Product: {} \n"
-        str = str.format(self.id, self.name, self.product_id)
-        return str
-
-
 orderdetails = db.Table('orderdetails',
                         db.Column('order_id', db.Integer, db.ForeignKey(
                             'orders.id'), nullable=False),
-                        db.Column('category_id', db.Integer, db.ForeignKey(
-                            'categories.id'), nullable=False),
-                        db.PrimaryKeyConstraint('order_id', 'category_id'))
+                        db.Column('product_id', db.Integer, db.ForeignKey(
+                            'products.id'), nullable=False),
+                        db.PrimaryKeyConstraint('order_id', 'product_id'))
 
 
 class Order(db.Model):
@@ -56,11 +41,11 @@ class Order(db.Model):
     phone = db.Column(db.String(32))
     totalcost = db.Column(db.Float)
     date = db.Column(db.DateTime)
-    categories = db.relationship(
-        "Category", secondary=orderdetails, backref="orders")
+    products = db.relationship(
+        "Product", secondary=orderdetails, backref="orders")
 
     def __repr__(self):
-        str = "id: {}, Status: {}, Firstname: {}, Surname: {}, Email: {}, Phone: {}, Date: {}, Categories: {}, Total Cost: {}\n"
+        str = "id: {}, Status: {}, Firstname: {}, Surname: {}, Email: {}, Phone: {}, Date: {}, Products: {}, Total Cost: {}\n"
         str = str.format(self.id, self.status, self.firstname, self.surname,
-                         self.email, self.phone, self.date, self.categories, self.totalcost)
+                         self.email, self.phone, self.date, self.products, self.totalcost)
         return str
