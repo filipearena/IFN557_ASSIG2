@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 
 {% block head %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert alert-primary" role="alert">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
 <section>
     <div class="bg-white mt-3 mb-0" style="height: 70px">
         <h1 class="container text-center text-dark">

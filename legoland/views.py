@@ -60,7 +60,7 @@ def order():
             print('failed at creating a new order')
             order = None
     
-    # calcultate totalprice
+    # calculate totalprice
     totalprice = 0
     if order is not None:
         for product in order.products:
@@ -77,8 +77,12 @@ def order():
                 return 'There was an issue adding the item to your basket'
             return redirect(url_for('main.order'))
         else:
-            flash('item already in basket')
+            flash('Product already in basket')
             return redirect(url_for('main.order'))
+    if (len(order.products) == 0):
+        if 'order_id' in session:
+            flash('No products on the basket!')
+            return redirect(url_for('main.home'))
     # products = Product.query.order_by(Product.name).all()
     return render_template('order.html', order = order, totalprice = totalprice)
 
@@ -95,8 +99,15 @@ def deleteorderitem():
             return redirect(url_for('main.order'))
         except:
             return 'Problem deleting item from order'
-    return redirect(url_for('main.order'))
+    return redirect(url_for('main.home'))
 
+# Scrap basket
+@bp.route('/deleteorder')
+def deleteorder():
+    if 'order_id' in session:
+        del session['order_id']
+        flash('All items deleted')
+    return redirect(url_for('main.index'))
 
 @bp.route('/checkout', methods=['POST','GET'], strict_slashes=False)
 def checkout():
@@ -119,7 +130,7 @@ def checkout():
                 db.session.commit()
                 del session['order_id']
                 flash('Thank you! One of our awesome team members will contact you soon...')
-                return redirect(url_for('main.index'))
+                return redirect(url_for('main.home'))
             except:
                 return 'There was an issue completing your order'
     return render_template('checkout.html', form = form)

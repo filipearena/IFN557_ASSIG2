@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 
 {% block head %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert alert-primary" role="alert">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
 <section class="bread-crumbs">
     <div class="container-fluid">
         <div class="wrapper row">
@@ -50,6 +59,7 @@
                 <h5 class="mt-4">Total Price: <b>${{totalprice}}</b></h5>
                 <br>
                 <a href="{{ url_for('main.checkout') }}" class="btn btn-danger mr-4">Checkout</a>
+                <a href="{{ url_for('main.deleteorder') }}" class="btn btn-warning mr-4">Empty Basket</a>
             </div>
         </div>
     </div>
