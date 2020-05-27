@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, url_for, request, session, flash, redirect
-from .models import Product, Order
+from .models import Product, Order, orderdetails
 from datetime import datetime
 from .forms import CheckoutForm
 from . import db
@@ -134,7 +134,6 @@ def checkout():
     form = CheckoutForm()
     if 'order_id' in session:
         order = Order.query.get_or_404(session['order_id'])
-
         if form.validate_on_submit():
             order.status = True
             order.firstname = form.firstname.data

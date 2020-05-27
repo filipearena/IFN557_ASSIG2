@@ -3,7 +3,7 @@
 {% block head %}
 {% with messages = get_flashed_messages() %}
 {% if messages %}
-<div class="alert alert-primary" role="alert">
+<div class="alert alert-warning" role="alert">
     {% for message in messages %}
     {{ message }}
     {% endfor %}
@@ -79,7 +79,7 @@
     <div class="container">
         <div class="card-deck">
             {% for product in products%}
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 text-dark">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 text-dark">
                 <a href="{{ url_for('main.product', productid=product.id) }}">
                     <img class="card-img-top" src="{{url_for('static', filename='img/' + product.image)}}"
                         height="250px" alt="Card Image">
@@ -104,11 +104,13 @@
                             {% endfor %}
                             {% endif %}
                         </div>
-                        <p>${{product.price}}</p>
+                        <p>${{'%0.2f'% product.price}}</p>
                     </a>
                     <form action="{{ url_for('main.order') }}">
                         <input type="hidden" id="product_id" name="product_id" value="{{ product.id }}">
-                        <input class="btn btn-danger btn-md" type="submit" value="Add to Cart">
+                        <!-- <input class="btn btn-danger btn-md" type="submit" value="Add to Cart"> -->
+                        <button type="submit" class="btn btn-danger btn-md"><i class="fas fa-shopping-cart"></i>Add to
+                            Cart</button>
                     </form>
                 </div>
             </div>

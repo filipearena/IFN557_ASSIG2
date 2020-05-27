@@ -4,7 +4,7 @@
 {% block head %}
 {% with messages = get_flashed_messages() %}
 {% if messages %}
-<div class="alert alert-primary" role="alert">
+<div class="alert alert-warning" role="alert">
     {% for message in messages %}
     {{ message }}
     {% endfor %}
@@ -20,15 +20,19 @@
             <div class="container-fluid">
                 <div class="wrapper row">
                     <div class="col-12">
-                        <h1>Checkout</h1>
+                        <h1>You are almost done!</h1>
                         <p>
-                            Thank you for your interest. Please provide your details to finalise details and take payment. Thank you!
+                            Please provide your details to finalise the purchase and proceed with the payment
                         </p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-6 col-md-12">
                         {{wtf.quick_form(form)}}
+                    </div>
+                    <div class="col-lg-6 d-none d-lg-block">
+                        <img class="d-block w-100" src="{{url_for('static', filename='img/lego_checkout.jpeg')}}"
+                            alt="Checkout">
                     </div>
                 </div>
             </div>

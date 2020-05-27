@@ -73,11 +73,13 @@
                     </div>
                     <span class="reviews">{{product.numreviews}} reviews</span>
                     <p class="product-description">{{product.shortdescription}}</p>
-                    <h4 class="product-price">${{product.price}}</h4>
+                    <h4 class="product-price">${{'%0.2f'% product.price}}</h4>
                     <div class="action mt-2">
                         <form action="{{ url_for('main.order') }}">
                             <input type="hidden" id="product_id" name="product_id" value="{{ product.id }}">
-                            <input class="btn btn-danger btn-md col-md-12 mb-3" type="submit" value="Add to Cart">
+                            <button type="submit" class="btn btn-danger btn-md col-md-12 mb-3"><i
+                                    class="fas fa-shopping-cart"></i>Add to
+                                Cart</button>
                         </form>
                         <div class="container-fluid">
                             <div class="row">

@@ -1,12 +1,18 @@
 from flask_wtf import FlaskForm
 from wtforms.fields import SubmitField, StringField
-from wtforms.validators import InputRequired, email
+from wtforms.validators import InputRequired, email, Length
 
 # form used in basket
-class CheckoutForm(FlaskForm):
-    firstname = StringField("Your first name", validators=[InputRequired()])
-    surname = StringField("Your surname", validators=[InputRequired()])
-    email = StringField("Your email", validators=[InputRequired(), email()])
-    phone = StringField("Your phone number", validators=[InputRequired()])
-    submit = SubmitField("Send to Agent")
 
+
+class CheckoutForm(FlaskForm):
+    firstname = StringField("First name", validators=[
+                            Length(min=1, max=20)])
+    surname = StringField("Surname", validators=[
+                          Length(min=1, max=20)])
+    email = StringField("Email Address", validators=[
+        InputRequired(message='Please provide a value'), email(message='Invalid email format'), Length(min=3, max=30)])
+    phone = StringField("Phone number", validators=[
+                        InputRequired(message='Please provide a value'), Length(min=5, max=13)])
+    submit = SubmitField("Submit", render_kw={
+                         'style': 'border: 1px solid #ddd; margin-top: 10px'})
