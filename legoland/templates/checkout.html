@@ -4,7 +4,7 @@
 {% block head %}
 {% with messages = get_flashed_messages() %}
 {% if messages %}
-<div class="alert alert-warning" role="alert">
+<div class="alert alert-warning" style="color: #343a40; border: none" role="alert">
     {% for message in messages %}
     {{ message }}
     {% endfor %}

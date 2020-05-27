@@ -149,7 +149,7 @@ def checkout():
                 db.session.commit()
                 del session['order_id']
                 flash(
-                    'Thank you! One of our awesome team members will contact you soon...')
+                    'Thank you for buying our products!')
                 return redirect(url_for('main.home'))
             except:
                 return 'There was an issue completing your order'
