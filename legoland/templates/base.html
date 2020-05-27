@@ -41,29 +41,21 @@
                 </button>
 
                 <!-- Navbar -->
-                <div class="collapse navbar-collapse" id="navbarToggler">
+                <div class="collapse navbar-collapse justify-content-end" id="navbarToggler">
                     <div class="navbar-nav">
                         <a class="nav-item nav-link text-center" href="/shop/most-popular">Shop</a>
                         <a class="nav-item nav-link text-center" href="#">Support</a>
                         <a class="nav-item nav-link text-center" href="#">About</a>
-                        <div class="dropdown">
-                            <div class="dropdown-menu" aria-labelledby="bookDropdown">
-                                <a class="dropdown-item text-center" href="/shop/most-popular">Shop</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-center" href="#">Support</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-center" href="#">About</a>
-                            </div>
-                        </div>
-                        <div>
+                        <div class="ml-4 nav-item text-center justify-content-end" style="width: 100%;">
+                            <form class="form-inline text-center" action="{{ url_for('main.search') }}"
+                                style="max-width: 300px; display: inline-block">
+                                <input style="border-radius: 10px" class="form-control mr-sm-2" type="search"
+                                    placeholder="Search" aria-label="Search" name="search">
+                                <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <form class="d-none d-lg-block form-inline" action="{{ url_for('main.search') }}">
-                    <input style="border-radius: 10px" class="form-control mr-sm-2" type="search" placeholder="Search"
-                        aria-label="Search" name="search">
-                    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
-                </form>
             </div>
         </nav>
         {% block head %}{% endblock %}

@@ -64,7 +64,7 @@
     <div class="container">
         <div class="card-deck">
             {% for product in products%}
-            <div class="col-lg-3 col-md-6 col-sm-12 text-dark">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 text-dark">
                 <a href="/product/{{product.id}}">
                     <img class="card-img-top" src="{{url_for('static', filename='img/' + product.image)}}"
                         height="250px" alt="Card Image">
