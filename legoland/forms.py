@@ -15,4 +15,4 @@ class CheckoutForm(FlaskForm):
     phone = StringField("Phone number", validators=[
                         InputRequired(message='Please provide a value'), Length(min=5, max=13)])
     submit = SubmitField("Submit", render_kw={
-                         'style': 'border: 1px solid #ddd; margin-top: 10px'})
+                         'style': 'margin-top: 10px; background-color: #dc3545; color:#fff'})
