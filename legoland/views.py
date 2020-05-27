@@ -9,19 +9,25 @@ bp = Blueprint('main', __name__)
 
 @bp.route('/')
 def index():
-    products = Product.query.order_by(Product.name).all()
-    return render_template('home.html', products=products)
+    mostpopular = []
+    products = Product.query.order_by(Product.numreviews).all()
+    for x in range(4):
+        mostpopular.append(products[x])
+    return render_template('home.html', products=mostpopular)
 
 
 @bp.route('/home')
 def home():
-    products = Product.query.order_by(Product.name).all()
-    return render_template('home.html', products=products)
+    mostpopular = []
+    products = Product.query.order_by(Product.numreviews).all()
+    for x in range(4):
+        mostpopular.append(products[x])
+    return render_template('home.html', products=mostpopular)
 
 
 @bp.route('/shop/<string:sortby>')
 def shop(sortby):
-    # USE SORT BY TO FILTER
+    # USING SORT BY TO FILTER PRODUCTS ON SHOP PAGE
     if(sortby == 'review'):
         products = Product.query.order_by(Product.fullstar.desc()).all()
     elif(sortby == 'price'):
@@ -31,18 +37,26 @@ def shop(sortby):
     return render_template('shop.html', products=products, sortby=sortby)
 
 
+@bp.route('/shop/')
+def search():
+    originalSearch = request.args.get('search')
+    search = '%{}%'.format(originalSearch)
+    products = Product.query.filter(Product.name.like(search)).all()
+    return render_template('shop.html', products=products, search=originalSearch)
+
+
 @bp.route('/product/<int:productid>/')
 def product(productid):
     product = Product.query.get(productid)
     return render_template('product.html', product=product)
 
 
-@bp.route('/order', methods=['POST','GET'])
+@bp.route('/order', methods=['POST', 'GET'])
 def order():
     product_id = request.values.get('product_id')
 
     # retrieve order if there is one
-    if 'order_id'in session.keys():
+    if 'order_id' in session.keys():
         order = Order.query.get(session['order_id'])
         # order will be None if order_id stale
     else:
@@ -51,7 +65,8 @@ def order():
 
     # create new order if needed
     if order is None:
-        order = Order(status = False, firstname='', surname='', email='', phone='', totalcost=0, date=datetime.now())
+        order = Order(status=False, firstname='', surname='',
+                      email='', phone='', totalcost=0, date=datetime.now())
         try:
             db.session.add(order)
             db.session.commit()
@@ -59,13 +74,13 @@ def order():
         except:
             print('failed at creating a new order')
             order = None
-    
+
     # calculate totalprice
     totalprice = 0
     if order is not None:
         for product in order.products:
             totalprice = totalprice + product.price
-    
+
     # are we adding an item?
     if product_id is not None and order is not None:
         product = Product.query.get(product_id)
@@ -84,12 +99,14 @@ def order():
             flash('No products on the basket!')
             return redirect(url_for('main.home'))
     # products = Product.query.order_by(Product.name).all()
-    return render_template('order.html', order = order, totalprice = totalprice)
+    return render_template('order.html', order=order, totalprice=totalprice)
 
 # Delete specific basket items
+
+
 @bp.route('/deleteorderitem', methods=['POST'])
 def deleteorderitem():
-    id=request.form['id']
+    id = request.form['id']
     if 'order_id' in session:
         order = Order.query.get_or_404(session['order_id'])
         product_to_delete = Product.query.get(id)
@@ -102,6 +119,8 @@ def deleteorderitem():
     return redirect(url_for('main.home'))
 
 # Scrap basket
+
+
 @bp.route('/deleteorder')
 def deleteorder():
     if 'order_id' in session:
@@ -109,12 +128,13 @@ def deleteorder():
         flash('All items deleted')
     return redirect(url_for('main.index'))
 
-@bp.route('/checkout', methods=['POST','GET'], strict_slashes=False)
+
+@bp.route('/checkout', methods=['POST', 'GET'], strict_slashes=False)
 def checkout():
-    form = CheckoutForm() 
+    form = CheckoutForm()
     if 'order_id' in session:
         order = Order.query.get_or_404(session['order_id'])
-       
+
         if form.validate_on_submit():
             order.status = True
             order.firstname = form.firstname.data
@@ -129,8 +149,9 @@ def checkout():
             try:
                 db.session.commit()
                 del session['order_id']
-                flash('Thank you! One of our awesome team members will contact you soon...')
+                flash(
+                    'Thank you! One of our awesome team members will contact you soon...')
                 return redirect(url_for('main.home'))
             except:
                 return 'There was an issue completing your order'
-    return render_template('checkout.html', form = form)
+    return render_template('checkout.html', form=form)

@@ -16,6 +16,7 @@
 <section>
     <div class="container mt-3">
         <div class="">
+            {% if sortby %}
             <span class="text-dark mr-2">
                 Order by
             </span>
@@ -36,6 +37,26 @@
                 <a class="dropdown-item" href="/shop/price">Lowest Price</a>
                 <a class="dropdown-item" href="/shop/review">Best Review</a>
             </div>
+            {% endif %}
+            {% if search %}
+            <span class="text-dark mr-2">
+                Showing results for: <u><b>{{search}}</b></u>
+            </span>
+            <span class="text-dark mr-2">
+                <a href="/shop/most-popular"><span class="badge badge-pill badge-dark">Clear <i
+                            class="fas fa-times-circle"></i></span></a>
+            </span>
+            {% endif %}
+            {% if products|length == 0 %}
+            <h3 class="text-dark mr-2 mt-4">
+                No results found for this search
+            </h3>
+            {% endif %}
+            {% if products|length > 0 and not sortby %}
+            <h3 class="text-dark mr-2 mt-4">
+                {{ products| length}} results found
+            </h3>
+            {% endif %}
         </div>
     </div>
 </section>
@@ -43,7 +64,7 @@
     <div class="container">
         <div class="card-deck">
             {% for product in products%}
-            <div class="col-lg-4 col-md-6 col-sm-12 text-dark">
+            <div class="col-lg-3 col-md-6 col-sm-12 text-dark">
                 <a href="/product/{{product.id}}">
                     <img class="card-img-top" src="{{url_for('static', filename='img/' + product.image)}}"
                         height="250px" alt="Card Image">
