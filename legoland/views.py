@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, url_for, request, session, flash, redirect
 from .models import Product, Order, orderdetails
 from datetime import datetime
-from .forms import CheckoutForm
+from .forms import CheckoutForm, SupportForm
 from . import db
 
 bp = Blueprint('main', __name__)
@@ -23,6 +23,19 @@ def home():
     for x in range(4):
         mostpopular.append(products[x])
     return render_template('home.html', products=mostpopular)
+
+
+@bp.route('/support', methods=['POST', 'GET'], strict_slashes=False)
+def support():
+    form = SupportForm()
+    if form.validate_on_submit():
+        try:
+            flash(
+                'Thank you for getting in touch! Our team will be in contact soon')
+            return redirect(url_for('main.home'))
+        except:
+            return 'There was an issue submitting the form'
+    return render_template('support.html', form=form)
 
 
 @bp.route('/shop/<string:sortby>')

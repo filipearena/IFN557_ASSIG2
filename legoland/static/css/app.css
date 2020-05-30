@@ -196,6 +196,10 @@ i.fas {
     text-align: center;
 }
 
+.vl{
+    border-right: 1px solid #ddd;
+}
+
 @media (max-width: 768px) {
     .home-center-items {
         justify-content: flex-start;
