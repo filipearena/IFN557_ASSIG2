@@ -4,7 +4,7 @@
 <section class="bread-crumbs">
     <div class="container-fluid">
         <div class="wrapper row">
-            <span class="container text-dark ">
+            <span class="container-fluid text-dark ">
                 <a href="/home" class="text-dark">Home</a> > <a>Shop
             </span>
         </div>
@@ -14,7 +14,7 @@
 
 {% block main %}
 <section>
-    <div class="container mt-3">
+    <div class="container-fluid mt-3">
         <div class="">
             {% if sortby %}
             <span class="text-dark mr-2">
@@ -61,10 +61,10 @@
     </div>
 </section>
 <section style="margin: 30px 0 20px 0">
-    <div class="container">
+    <div class="container-fluid">
         <div class="card-deck">
             {% for product in products%}
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 text-dark">
+            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 text-dark">
                 <a href="/product/{{product.id}}">
                     <img class="card-img-top" src="{{url_for('static', filename='img/' + product.image)}}"
                         height="250px" alt="Card Image">

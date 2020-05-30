@@ -23,7 +23,7 @@
     <!-- Contains the heading, navigation and banner image -->
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-            <div class="container">
+            <div class="container-fluid">
 
                 <div style="margin-right:15px">
                     <a href="/">
@@ -46,9 +46,9 @@
                         <a class="nav-item nav-link text-center" href="/shop/most-popular">Shop</a>
                         <a class="nav-item nav-link text-center" href="#">Support</a>
                         <a class="nav-item nav-link text-center" href="#">About</a>
-                        <div class="ml-4 nav-item text-center justify-content-end" style="width: 100%;">
+                        <div class="ml-md-4 ml-sm-0 nav-item text-center justify-content-end" style="width: 100%;">
                             <form class="form-inline text-center" action="{{ url_for('main.search') }}"
-                                style="max-width: 300px; display: inline-block">
+                                style="max-width: 400px; display: inline-block">
                                 <input style="border-radius: 10px" class="form-control mr-sm-2" type="search"
                                     placeholder="Search" aria-label="Search" name="search">
                                 <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
@@ -65,7 +65,7 @@
     <main>
         {% block main %}{% endblock %}
         <section class="subscription-box bg-warning">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="subscribe">

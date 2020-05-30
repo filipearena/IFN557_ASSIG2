@@ -13,7 +13,7 @@
 <section class="bread-crumbs">
     <div class="container-fluid">
         <div class="wrapper row">
-            <span class="container text-dark ">
+            <span class="container-fluid text-dark ">
                 <a href="/home" class="text-dark">Home</a> > <a href="/shop/most-popular" class="text-dark">Shop</a> >
                 Cart
             </span>
@@ -26,7 +26,7 @@
 <!-- display contents of user basket -->
 
 {% for product in order.products %}
-<div class="container" style="border: none; padding: 10px">
+<div class="container-fluid" style="border: none; padding: 10px">
     <div class="card product-detail">
         <div class="container-fluid">
             <div class="wrapper row">
@@ -56,7 +56,7 @@
 <section class="mb-3 text-center">
     <div class="container-fluid">
         <div class="wrapper row">
-            <div class="container text-dark ">
+            <div class="container-fluid text-dark ">
                 <a href="/shop/most-popular" class="btn btn-warning mt-4 mr-4"><i class="fas fa-shopping-cart"></i>Shop
                     More</a>
                 <a href="{{ url_for('main.deleteorder') }}" class="btn btn-secondary mt-4"><i
